@@ -9,6 +9,7 @@ const Header = () => {
       <img className="w-md" src={logo} alt="site heading" />
       <h3 className="text-accent">Journalism Without Fear or Favour</h3>
       <p className="text-gray-500 font-semibold ">{theDay}</p>
+      {import.meta.env.VITE_myname}
     </div>
   );
 };

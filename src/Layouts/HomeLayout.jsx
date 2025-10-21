@@ -1,12 +1,14 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Header from "../Components/Header";
 import LatestNews from "../Components/LatestNews";
 import Navbar from "../Components/Navbar";
 import LeftNav from "../HomeLayouts/LeftNav";
 import RightNav from "../HomeLayouts/RightNav";
+import LoadingFallback from "../Contexts/LoadingFallback";
 
 const HomeLayout = () => {
+  const { state } = useNavigation();
   return (
     <div className="w-[80dvw] mx-auto ">
       <header>
@@ -24,7 +26,11 @@ const HomeLayout = () => {
           <LeftNav></LeftNav>
         </aside>
         <section className="col-span-6">
-          <Outlet></Outlet>
+          {state == "loading" ? (
+            <LoadingFallback></LoadingFallback>
+          ) : (
+            <Outlet></Outlet>
+          )}
         </section>
 
         <aside className="col-span-3 sticky top-1 h-fit">

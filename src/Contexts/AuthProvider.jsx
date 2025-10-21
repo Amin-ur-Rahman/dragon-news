@@ -10,6 +10,9 @@ import { auth } from "../firebase.init";
 
 const AuthProvider = ({ children }) => {
   const [runningUser, setRunningUser] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+  console.log(runningUser, loading);
   // const [newUser, setNewUser] = useState(null);
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -31,17 +34,18 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsunscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setRunningUser(user);
-        return;
       } else {
         setRunningUser(null);
         console.log("no user found!");
       }
+      setLoading(false);
     });
+
     return () => {
-      unsunscribe();
+      unsubscribe();
     };
   }, []);
 
@@ -51,6 +55,8 @@ const AuthProvider = ({ children }) => {
     runningUser,
     createUser,
     loginUser,
+    loading,
+    setLoading,
   };
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
