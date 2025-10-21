@@ -1,5 +1,5 @@
 import { FaRegBookmark, FaShareAlt, FaEye, FaStar } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 function NewsCard({ news }) {
   const { id, title, rating, total_view, author, thumbnail_url, details } =
@@ -47,9 +47,12 @@ function NewsCard({ news }) {
         {details.length > 200 ? (
           <>
             {details.slice(0, 300)}...{" "}
-            <Link to={`/news/${id}`} className="text-primary font-medium">
+            <NavLink
+              to={`/news-datails/${id}`}
+              className="text-primary font-medium"
+            >
               Read More
-            </Link>
+            </NavLink>
           </>
         ) : (
           details
